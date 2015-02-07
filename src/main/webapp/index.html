@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>主页</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrapValidator/bootstrapValidator.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<meta name="robots" content="noindex,follow" />
+	</head>
+
+<body>
+	<header class="navbar navbar-static-top bs-docs-nav dznav" id="top" role="banner">
+	  <div class="container">
+		<div class="navbar-header">
+		  <a href="#" class="navbar-brand">段子</a>
+		</div>
+		  <ul class="nav navbar-nav navbar-right">
+			<li id="user_login"><a href="javascript:void(0);"  data-toggle="modal" data-target="#loginModel">登录</a></li>
+			<li id="user_register"><a href="javascript:void(0);"  data-toggle="modal" data-target="#registerModel">注册</a></li>
+			<li id="user_log" style="display:none"></li> 
+		 </ul>
+		</nav>
+	  </div>
+	</header>
+	<div class="container">
+		<!-- 隐藏用户名，将session注入进去-->
+		<input type="hidden" id="userId" value="">
+		<!-- 隐藏当前显示的行数，每次滚轮下拉从这里取-->
+		<input type="hidden" id="listNum"  value="">
+		 <div class="col-xs-9 list" id="list">
+			<h1>热门<h1>
+			<hr/>
+			<div>
+				<div class="media">
+				  <div class="pull-left">
+					<a href="#">
+					  <img class="media-object" src="img/usericon.png">
+					</a>
+				  </div>
+				  <div class="pull-left uiname">
+					<h4 class="media-heading">Media heading</h4>
+					<h4 class="media-heading">2015-2-5</h4>
+				  </div>
+				</div>
+				<h3>这是整个介绍</h3>
+				<img src="img/0.jpg" class="img-responsive" alt="Responsive image">
+				<div class="dzopt">
+					<!-- 隐藏这个段子id，id放在value中-->
+					<input type="hidden" name="dzid" value="这是id">
+					<button type="button" class="btn btn-default" onclick="up(this)">
+					  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>数字
+					</button>
+					<button type="button" class="btn btn-default" onclick="down(this)">
+					  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>数字
+					</button>
+					<button type="button" class="btn btn-default pull-right" onclick="tocomment(this)">
+					  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>数字
+					</button>
+				</div>
+			</div>
+			<hr/>
+			<div>
+				<div class="media">
+				  <div class="pull-left">
+					<a href="#">
+					  <img class="media-object" src="img/usericon.png">
+					</a>
+				  </div>
+				  <div class="pull-left uiname">
+					<h4 class="media-heading">Media heading</h4>
+					<h4 class="media-heading">2015-2-5</h4>
+				  </div>
+				</div>
+				<h3>这是整个介绍</h3>
+				<img src="img/0.jpg" class="img-responsive" alt="Responsive image">
+				<div class="dzopt">
+					<!-- 隐藏这个段子id，id放在value中-->
+					<input type="hidden" name="dzid" value="这是id">
+					<button type="button" class="btn btn-default" onclick="up(this)">
+					  <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>数字
+					</button>
+					<button type="button" class="btn btn-default" onclick="down(this)">
+					  <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>数字
+					</button>
+					<button type="button" class="btn btn-default pull-right" onclick="tocomment(this)">
+					  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>数字
+					</button>
+				</div>
+			</div>
+			<hr/>
+		 </div>
+		 <div class="col-xs-3 ">
+			<div class="panel panel-default textpanel">
+			  <div class="panel-heading">
+				<h3 class="panel-title">介绍</h3>
+			  </div>
+			  <div class="panel-body ">
+					<button type="button" class="btn btn-default">发布</button>
+			  </div>
+			</div>
+		 </div>
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="loginModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="loginModelLaebl">登录</h4>
+		  </div>
+		  <div class="modal-body">
+			 <form id="loginform" method="post" action="account/login">
+				<div class="form-group">
+					<input type="text" class="form-control center-block" style="width:70%;" name="userName" placeholder="用户名" />
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control center-block" style="width:70%;" name="password" placeholder="密码" />
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn center-block" value="登录" />
+				</div>
+			</form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#registerModel" data-dismiss="modal">立即注册</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<div class="modal fade" id="registerModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="registerModalLabel">注册</h4>
+		  </div>
+		  <div class="modal-body">
+			<form id="registerform" method="post" action="account/register">
+				<div class="form-group">
+					<input type="text" class="form-control center-block" style="width:70%;" name="userName" placeholder="用户名" />
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control center-block" style="width:70%;" name="password" placeholder="密码" />
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control center-block" style="width:70%;" name="confirmPassword" placeholder="确认密码" />
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn center-block" value="注册" />
+				</div>
+			</form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#loginModel" data-dismiss="modal">登录</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/mediaelement-and-player.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/bootstrapvalidator/bootstrapValidator.min.js"></script>
+	<script>
+	$(function(){	
+		$('#loginform').bootstrapValidator(
+		{
+			message: 'This value is not valid',
+			fields: {
+				userName: {
+					message: 'The username is not valid',
+					validators: {
+						notEmpty: {
+							message: '输入用户名不能为空'
+						}
+					}
+				},
+				password: {
+					validators: {
+						notEmpty: {
+							message: '密码不能为空'
+						}
+					}
+				}
+			}
+		}).on('success.form.bv', function(e) {
+			// Prevent form submission
+			e.preventDefault();
+
+			// Get the form instance
+			var $form = $(e.target);
+
+			// Get the BootstrapValidator instance
+			var bv = $form.data('bootstrapValidator');
+
+			// 登陆的异步事件，登陆成功刷新页面
+			$.post($form.attr('action'), $form.serialize(), function(data) {
+				var result = eval("("+data+")"); 
+				if(result.msg=="success")
+				{
+					window.location.href = result.url;
+				}else{
+					alert(result.msg);
+				}
+			});
+		});
+		
+		$('#registerform').bootstrapValidator(
+		{
+			message: '用户名无效',
+			fields: {
+				userName: {
+					message: '用户名无效',
+					validators: {
+						notEmpty: {
+							message: '用户名不能为空'
+						},
+						stringLength: {
+							min: 6,
+							max: 30,
+							message: '用户名太短或太长'
+						},
+					}
+				},
+				password: {
+					validators: {
+						notEmpty: {
+							message: '密码不能为空'
+						},
+						stringLength: {
+							min: 6,
+							max: 30,
+							message: '密码太短或太长'
+						}
+					}
+				},
+				confirmPassword:
+				{
+					validators: {
+						notEmpty: {
+							message: '密码不能为空'
+						},
+						identical: {
+							field: 'password',
+							message: '前后输入密码不一致'
+						}
+					}
+				}
+			}
+		}).on('success.form.bv', function(e)
+		{
+			// Prevent form submission
+			e.preventDefault();
+
+			// Get the form instance
+			var $form = $(e.target);
+
+			// Get the BootstrapValidator instance
+			var bv = $form.data('bootstrapValidator');
+			// Use Ajax to submit form data
+			$.post($form.attr('action'), $form.serialize(), function(data) 
+			{
+				//写入注册成功后事件
+			});
+		});	
+		console.log($('#userId').val());
+		if ($('#userId').val() != "")
+		{
+			$("#user_login").hide();
+			$("#user_register").hide();
+			$("#user_log").show();
+			var user = $('#userId').val();
+			console.log(user);
+			$('#user_log').addClass("dropdown");
+			$('#user_log').html("<a href='" + "javascript:void(0)；" + 
+			"'class='" + "dropdown-toggle" + "'data-toggle='" + "dropdown" +"'>" + user + 
+			"<span class='" + "caret" + "'></span>" +"</a>");
+			$('#user_log').append("<ul class='" + "dropdown-menu" + "'role='" + "menu" + "'>" +
+				"<li id='" + "logout" + "'><a href='" + "javascript:void(0)" + "'>注销</a></li>"+
+				"<li><a href='" + "http://localhost:8080/跳入发布页面" + "'>发布</a></li></ul>");
+		}	
+		else{
+			$("#user_login").show();
+			$("#user_register").show();
+			$("#user_log").hide();
+		}
+		
+		var isOK=true;//记录上次访问是否已经结束，如果ajax也有线程就好了 
+    	var scrollH=0;//判断是往上滚还是往下滚 
+		$(".list").css({"right":"2","bottom":0}); 
+    	$(".list") .ajaxStart(function()
+		{ 
+       		isOK=false;//执行ajax的时候把isOK设置成false防止第一次没有执行完的情况下执行第二次易出错 
+		}).ajaxStop(function(){ 
+         	isOK=true; 
+        });
+		$(window).scroll(function()
+		{      
+	      	document.getElementById("list").style.top=document.documentElement.scrollTop+"px";  
+	      	if($(document).height()-$(window).scrollTop()-document.documentElement.clientHeight<240)
+			{  
+		     	if(scrollH>document.documentElement.scrollTopY) 
+		      	{ 
+		      	  	scrollH=document.documentElement.scrollTop;//记录新位置 
+		      	 	return; 
+		      	} 
+		      	if(isOK)//如果是第一次或者上次执行完成了就执行本次 
+		      	{ 
+		        	scrollH=document.documentElement.scrollTop;//记录新位置 
+		        	isOK=false; 
+					//记录已经显示条数，这里传入取下面10条
+					var listNum = $("#listNum").val();
+		         	$.ajax(
+					{ 
+			          	type:"POST", 
+						data:{listNum:listNum}
+			         	url:"url", 
+			         	success:function(data)
+						{ 
+						//将listnum值设为新的
+							$("#listNum").val(listNum+data.length);
+				            for(data)
+							{
+								$("#list").append("<div><div class='media'><div class='pull-left'>" +
+								"<a href='#'><img class='media-object' src='" + 用户头像 + 
+								+"'></a></div><div class='pull-left uiname'><h4 class='media-heading'>" +
+								用户名 + "</h4><h4 class='media-heading'>"+
+								发表日期 + "</h4></div></div><h3>"+
+								这个段子的介绍+"</h3><img src='" +
+								这个段子图片路径 + "' class='img-responsive'><div class='dzopt'>"+
+					            + "<input type='hidden' name='dzid' value='"+
+								段子的id +"'><button type='button' class='btn btn-default' onclick='up(this)'>"+
+								"<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>"+
+								点赞的数量+"</button><button type='button' class='btn btn-default' onclick='down(this)'>"+
+								"<span class='glyphicon glyphicon-thumbs-down' aria-hidden='true'></span>"+
+								差评的数量+"</button><button type='button' class='btn btn-default pull-right' onclick='tocomment(this)'>"+
+					            "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>"+
+								评论数+"</button></div></div><hr/>"
+								)
+							}
+				        } 
+		          	});
+		        } 
+     	 	} 
+     	})	
+	});
+	
+	$('#user_log').on("click", "#logout", function(){
+		$.ajax({
+			type:'POST',
+			url:'注销登陆url',
+			success:function(data){
+				window.location.href="首页页面url，刷新";
+			}
+		});
+	});
+	
+	function up(obj)
+	{
+		var dzid = $(obj).parent().find("input")[0];
+		//点赞方法，传入段子的id，返回当前点赞数
+		 $.ajax({
+			type:'POST',
+			url:'',
+			data:{dzid:dzid},
+			success:function(data){
+				//成功事件里更改上面的数字
+				$(obj).html("<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>" + data);
+			}
+		});
+	}
+	function down(obj)
+	{
+		var dzid = $(obj).parent().find("input")[0];
+		//差评方法，传入段子的id，返回当前差评数
+		 $.ajax({
+			type:'POST',
+			url:'',
+			data:{dzid:dzid},
+			success:function(data){
+				$(obj).html("<span class='glyphicon glyphicon-thumbs-down' aria-hidden='true'></span>" + data);
+			}
+		});
+	}
+	
+	
+	function tocomment(obj)
+	{
+		console.log($("#userId").val());
+		//如果未登陆
+		if($("#userId").val() == '')
+		{
+			$('#loginModel').modal('show');
+		}
+		else{
+			var dzid = $(obj).parent().find("input")[0];
+			
+			//跳转到对应段子的页面，进行评论，传入段子id
+			$.ajax({
+				type:'POST',
+				url:'',
+				data:{dzid:dzid},
+				success:function(data){
+					$(obj).html("<span class='glyphicon glyphicon-thumbs-down' aria-hidden='true'></span>" + data);
+				}
+			});
+		}
+	}
+	</script>
+
+</body>
+
+</html>

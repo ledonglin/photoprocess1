@@ -1,0 +1,31 @@
+body
+{
+	color: #5a5a5a;
+	background: url("../img/mooning.png") repeat scroll 0 0 #E5E5E5;
+    overflow-x: hidden;
+}
+
+/*导航*/
+.dznav{
+	background-color:#1b1b1b;
+}
+/*首页*/
+.uiname{
+	margin:10px 0 0 0;
+}
+.list{
+	background-color:#fff;
+}
+.dzopt{
+	margin:10px 0 0 0;
+}
+/*评论*/
+.ctextarea{
+	width:650px;
+}
+.csubbtn{
+	margin:30px 0 0 0;
+}
+.ccontent{
+	margin:5px 0 0 0 ;
+}

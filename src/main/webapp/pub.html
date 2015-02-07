@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--meta name="viewport" content="width=device-width, initial-scale=1.0"-->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>主页</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrapValidator/bootstrapValidator.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<meta name="robots" content="noindex,follow" />
+	</head>
+
+<body>
+	<header class="navbar navbar-static-top bs-docs-nav dznav" id="top" role="banner">
+	  <div class="container">
+		<div class="navbar-header">
+		  <a href="#" class="navbar-brand">段子</a>
+		</div>
+		  <ul class="nav navbar-nav navbar-right">
+			<li id="user_login"><a href="javascript:void(0);"  data-toggle="modal" data-target="#loginModel">登录</a></li>
+			<li id="user_register"><a href="javascript:void(0);"  data-toggle="modal" data-target="#registerModel">注册</a></li>
+			<li id="user_log" style="display:none"></li> 
+		 </ul>
+		</nav>
+	  </div>
+	</header>
+	<div class="container">
+		<!-- 隐藏用户名，将session注入进去-->
+		<input type="hidden" id="userId" value="">
+		<!-- 隐藏当前显示的行数，每次滚轮下拉从这里取-->
+		<input type="hidden" id="dzId"  value="">
+		 <div class="col-xs-3 ">
+			  <ul class="nav nav-tabs nav-stacked list-group" data-spy="affix" data-offset-top="125">
+			  
+				  <li class="list-group-item">Cras justo odio</li>
+				  <li class="list-group-item">Dapibus ac facilisis in</li>
+				  <li class="list-group-item">Morbi leo risus</li>
+				  <li class="list-group-item">Porta ac consectetur ac</li>
+				  <li class="list-group-item">Vestibulum at eros</li>
+				
+                
+				</ul>
+		 </div>
+	</div>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/mediaelement-and-player.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/bootstrapvalidator/bootstrapValidator.min.js"></script>
+	<script>
+	$(function(){	
+		if ($('#userId').val() != "")
+		{
+			$("#user_login").hide();
+			$("#user_register").hide();
+			$("#user_log").show();
+			var user = $('#userId').val();
+			console.log(user);
+			$('#user_log').addClass("dropdown");
+			$('#user_log').html("<a href='" + "javascript:void(0)；" + 
+			"'class='" + "dropdown-toggle" + "'data-toggle='" + "dropdown" +"'>" + user + 
+			"<span class='" + "caret" + "'></span>" +"</a>");
+			$('#user_log').append("<ul class='" + "dropdown-menu" + "'role='" + "menu" + "'>" +
+				"<li id='" + "logout" + "'><a href='" + "javascript:void(0)" + "'>注销</a></li>"+
+				"<li><a href='" + "http://localhost:8080/跳入发布页面" + "'>发布</a></li></ul>");
+		}	
+		else{
+			$("#user_login").show();
+			$("#user_register").show();
+			$("#user_log").hide();
+		}	
+	});
+	
+	$('#user_log').on("click", "#logout", function(){
+		$.ajax({
+			type:'POST',
+			url:'注销登陆url',
+			success:function(data){
+				window.location.href="首页页面url，刷新";
+			}
+		});
+	});
+	</script>
+
+</body>
+
+</html>
